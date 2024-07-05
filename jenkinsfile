@@ -7,6 +7,11 @@ pipeline {
         sh 'npm install'
       }
     }
+    stage('Test') {
+      steps {
+        sh 'npm test'
+      }
+    }
     stage('Build') {
       steps {
         sh 'npm run build'
@@ -19,6 +24,11 @@ pipeline {
     }
   }
   post {
+    failure {
+      mail to: 'bndungu061@gmail.com',
+           subject: "Build failed: ${env.BUILD_NUMBER}",
+           body: "Something is wrong with ${env.BUILD_URL}"
+    }
     always {
       echo 'Pipeline finished.'
     }
