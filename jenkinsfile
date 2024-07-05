@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git 'https://github.com/ndunguuu/gallery-1.git'
+                git "https://github.com/Ndunguuu01./gallery.git"
             }
         }
         stage('Install Dependencies') {
