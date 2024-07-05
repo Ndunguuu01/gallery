@@ -1,21 +1,26 @@
 pipeline {
-    agent any
+  agent any
 
-    stages {
-        stage('Clone Repository') {
-            steps {
-                git "https://github.com/Ndunguuu01./gallery.git"
-            }
-        }
-        stage('Install Dependencies') {
-            steps {
-                sh 'npm install'
-            }
-        }
-        stage('Deploy to Render') {
-            steps {
-                sh 'node server.js'
-            }
-        }
+  stages {
+    stage('Install Dependencies') {
+      steps {
+        sh 'npm install'
+      }
     }
+    stage('Build') {
+      steps {
+        sh 'npm run build'
+      }
+    }
+    stage('Deploy') {
+      steps {
+        sh 'node server'
+      }
+    }
+  }
+  post {
+    always {
+      echo 'Pipeline finished.'
+    }
+  }
 }
