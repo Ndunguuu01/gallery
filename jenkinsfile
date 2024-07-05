@@ -24,8 +24,12 @@ pipeline {
     }
   }
   post {
+    success {
+      slackSend (channel: '#ip1', color: 'good', message: "Build successful: ${env.BUILD_NUMBER} - ${env.BUILD_URL}")
+    }
     failure {
-      mail to: 'bndungu061@gmail.com',
+      slackSend (channel: '#ip1', color: 'danger', message: "Build failed: ${env.BUILD_NUMBER} - ${env.BUILD_URL}")
+      mail to: 'you@example.com',
            subject: "Build failed: ${env.BUILD_NUMBER}",
            body: "Something is wrong with ${env.BUILD_URL}"
     }
