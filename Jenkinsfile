@@ -20,10 +20,10 @@ pipeline {
                 sh 'npm run build' 
             }
         }
-        stage('Deploy to Render') 
+        stage('Deploy to Herku') 
             steps {
                 
-                sh 'node server.js' 
+                sh 'git push heroku master' 
             }
         }
         stage('Test') {
