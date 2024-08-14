@@ -37,20 +37,20 @@ pipeline {
 
     post {
         success {
-            echo 'Deployment successful!'
+            slackSend (
+                channel: "${env.SLACK_CHANNEL}",
+                color: 'good',
+                message: "Build #${env.BUILD_NUMBER} - Success! View it here: ${env.BUILD_URL}"
+            )
         }
         failure {
-            echo 'Deployment failed!'
+            slackSend (
+                channel: "${env.SLACK_CHANNEL}",
+                color: 'danger',
+                message: "Build #${env.BUILD_NUMBER} - FAILED! Check it out: ${env.BUILD_URL}"
+            )
         }
     }
-
-    post {
-    failure {
-        mail to: bndungu061@gmail.com,
-             subject: "Build Failed: ${env.BUILD_ID}",
-             body: "Something went wrong. Please check the Jenkins console output for details."
-    }
-}
 
 }
 
